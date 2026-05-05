@@ -1,0 +1,4 @@
+ Modules -> Controllers -> Services
+ nest generate resource task - 'for generating new resource' -> REST API (CRUD) -> Yes
+
+nest g res task --no-spec
