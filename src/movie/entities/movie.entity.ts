@@ -1,12 +1,18 @@
-import { ReviewEntity } from 'src/review/entity/review.entity';
+import { ActorEntity } from 'src/actor/entities/actor.entity';
+import { ReviewEntity } from 'src/review/entities/review.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { MoviePosterEntity } from './poster.entity';
 
 export enum Genre {
   Action = 'Action',
@@ -53,8 +59,26 @@ export class MovieEntity {
   })
   genre!: Genre;
 
+  @Column({ name: 'poster_id', type: 'uuid', nullable: true })
+  posterId: string | undefined;
+
   @OneToMany(() => ReviewEntity, (review) => review.movie)
   reviews: ReviewEntity[] | undefined;
+
+  @ManyToMany(() => ActorEntity, (actor) => actor.movies)
+  @JoinTable({
+    name: 'movie_actors',
+    joinColumn: { name: 'movie_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'actor_id', referencedColumnName: 'id' },
+  })
+  actors: ActorEntity[] | undefined;
+
+  @OneToOne(() => MoviePosterEntity, (poster) => poster.movie, {
+    onDelete: 'CASCADE',
+    nullable: true,
+  })
+  @JoinColumn({ name: 'poster_id' })
+  poster: MoviePosterEntity | null | undefined;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date | undefined;
