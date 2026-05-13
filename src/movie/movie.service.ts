@@ -27,7 +27,7 @@ export class MovieService {
   async findAll(): Promise<MovieEntity[]> {
     return await this.movieRepository.find({
       where: { isAvaliable: false },
-      relations: ['poster'],
+      relations: ['poster', 'actors'],
       order: { createdAt: 'DESC' },
       take: 10,
       // select: ['id'],
