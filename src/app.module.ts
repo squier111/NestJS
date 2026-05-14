@@ -25,7 +25,6 @@ import { PrismaModule } from './prisma/prisma.module';
     UserModule,
     ReviewModule,
     ActorModule,
-    PrismaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
