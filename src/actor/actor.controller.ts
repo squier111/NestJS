@@ -11,6 +11,11 @@ export class ActorController {
     return this.actorService.create(dto);
   }
 
+  @Post('prisma')
+  createPrisma(@Body() dto: CreateActorDto) {
+    return this.actorService.createPrisma(dto);
+  }
+
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.actorService.findById(id);

@@ -5,6 +5,7 @@ import { In, Repository } from 'typeorm';
 import { MovieDto } from './dto/movie.dto';
 import { ActorEntity } from 'src/actor/entities/actor.entity';
 import { MoviePosterEntity } from './entities/poster.entity';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class MovieService {
@@ -17,6 +18,8 @@ export class MovieService {
 
     @InjectRepository(ActorEntity)
     private readonly actorRepository: Repository<ActorEntity>,
+
+    private readonly prismaService: PrismaService,
   ) {}
   // constructor(private readonly userService: UserService) {}
 
@@ -27,7 +30,7 @@ export class MovieService {
   async findAll(): Promise<MovieEntity[]> {
     return await this.movieRepository.find({
       where: { isAvaliable: false },
-      relations: ['poster'],
+      relations: ['poster', 'actors'],
       order: { createdAt: 'DESC' },
       take: 10,
       // select: ['id'],

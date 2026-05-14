@@ -16,8 +16,24 @@ services:
     networks:
       - nestjs-course
 
+  postgres-prisma:
+    container_name: postgres-prisma
+    image: postgres:16
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=nestjs-prisma
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres_prisma_data:/var/lib/postgresql/data
+    networks:
+      - nestjs-course
+
 volumes:
   postgres_data:
+  postgres_prisma_data:
 
 networks:
   nestjs-course:
