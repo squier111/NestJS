@@ -27,6 +27,26 @@ export class MovieController {
     return this.movieService.findAll();
   }
 
+  @Get('prisma')
+  findAllPrisma() {
+    return this.movieService.findAllPrisma();
+  }
+
+  @Get('prisma/:id')
+  findByIdPrisma(@Param('id') id: string) {
+    return this.movieService.findByIdPrisma(id);
+  }
+
+  @Put('prisma/:id')
+  updatePrisma(@Param('id') id: string, @Body() dto: MovieDto) {
+    return this.movieService.updatePrisma(id, dto);
+  }
+
+  @Delete('prisma/:id')
+  deletePrisma(@Param('id') id: string) {
+    return this.movieService.deletePrisma(id);
+  }
+
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.movieService.findById(id);
@@ -35,6 +55,11 @@ export class MovieController {
   @Post()
   create(@Body() dto: MovieDto) {
     return this.movieService.create(dto);
+  }
+
+  @Post('prisma')
+  createPrisma(@Body() dto: MovieDto) {
+    return this.movieService.createPrisma(dto);
   }
 
   @Put(':id')

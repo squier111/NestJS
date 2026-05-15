@@ -10,4 +10,9 @@ export class ReviewController {
   create(@Body() dto: CreateReviewDto) {
     return this.reviewService.create(dto);
   }
+
+  @Post('prisma')
+  createPrisma(@Body() dto: CreateReviewDto) {
+    return this.reviewService.createPrisma(dto);
+  }
 }
