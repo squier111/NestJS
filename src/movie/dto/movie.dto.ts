@@ -6,6 +6,7 @@ import {
   Max,
   IsArray,
   IsUUID,
+  IsBoolean,
 } from 'class-validator';
 
 export class MovieDto {
@@ -18,6 +19,9 @@ export class MovieDto {
   @Min(1888, { message: 'Release year must be greater than or equal to 1888' })
   @Max(new Date().getFullYear())
   releaseYear?: number;
+
+  @IsBoolean()
+  isAvailable?: boolean;
 
   @IsString()
   imageUrl?: string;

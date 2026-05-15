@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
@@ -10,15 +11,15 @@ datasource db {
 model Movie {
   id    String @id @default(uuid())
   title String
-  releaseYear Int @map("release_year")
+  releaseYear Int? @map("release_year")
 
   rating Float @default(0.0)
-  iaAvailable Boolean @default(false) @map("is_available")
+  isAvailable Boolean @default(false) @map("is_available")
 
   genre MovieGenre @default(DRAMA)
 
-  poster MoviePoster @relation(fields: [posterId], references: [id])
-  posterId String @unique @map("poster_id")
+  poster MoviePoster? @relation(fields: [posterId], references: [id])
+  posterId String? @unique @map("poster_id")
 
   reviews Review[] @relation("movie_reviews")
 
@@ -36,7 +37,7 @@ model MoviePoster {
   url   String
 
   movie Movie? @relation
-  movieId String @map("movie_id")
+  movieId String? @map("movie_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
